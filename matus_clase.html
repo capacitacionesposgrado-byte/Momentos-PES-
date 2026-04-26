@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planificación Estratégica Situacional — Carlos Matus</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --azul: #1D3A6E;
+  --azul-med: #2E5BA8;
+  --azul-claro: #E8EFF9;
+  --teal: #0F6E56;
+  --teal-claro: #E1F5EE;
+  --coral: #993C1D;
+  --coral-claro: #FAECE7;
+  --amber: #854F0B;
+  --amber-claro: #FAEEDA;
+  --purple: #3C3489;
+  --purple-claro: #EEEDFE;
+  --gris: #4A4A4A;
+  --gris-claro: #F5F4F0;
+  --borde: #D0D8E8;
+  --blanco: #FFFFFF;
+  --texto: #1A1A2E;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: #F2F0EB;
+  color: var(--texto);
+  line-height: 1.7;
+}
+
+/* ── HEADER ─────────────────────────────────── */
+.site-header {
+  background: var(--azul);
+  color: white;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.site-header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -80px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.site-header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 60px;
+  width: 250px; height: 250px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.03);
+}
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+.header-eyebrow {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #90AEDA;
+  margin-bottom: 0.75rem;
+}
+.header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+.header-subtitle {
+  font-size: 1.05rem;
+  color: #90AEDA;
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+.header-nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.nav-pill {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #C8D8F0;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.nav-pill:hover { background: rgba(255,255,255,0.2); color: white; }
+
+/* ── LAYOUT ──────────────────────────────────── */
+main { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+section { margin-bottom: 3.5rem; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--azul);
+}
+.section-number {
+  background: var(--azul);
+  color: white;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--azul);
+}
+
+/* ── INTRO BOX ───────────────────────────────── */
+.intro-box {
+  background: white;
+  border: 1px solid var(--borde);
+  border-left: 4px solid var(--azul-med);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  font-size: 0.95rem;
+  color: var(--gris);
+  line-height: 1.75;
+}
+
+/* ── TRIANGULO ───────────────────────────────── */
+.triangulo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.triangulo-grid .vertice-top {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+}
+.vertice-card {
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  width: 100%;
+  max-width: 260px;
+}
+.vertice-card:hover, .vertice-card.active { border-color: currentColor; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+.vertice-card .tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.vertice-card .nombre {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.vertice-card .sub {
+  font-size: 0.8rem;
+  color: var(--gris);
+  margin-top: 0.2rem;
+}
+.v-proyecto { color: var(--purple); border-top: 3px solid var(--purple); }
+.v-gobernabilidad { color: var(--teal); border-top: 3px solid var(--teal); }
+.v-capacidad { color: var(--coral); border-top: 3px solid var(--coral); }
+
+.triangulo-detalle {
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 1.5rem;
+  min-height: 140px;
+  display: none;
+}
+.triangulo-detalle.visible { display: block; }
+.detalle-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.detalle-cuerpo { font-size: 0.92rem; color: var(--gris); line-height: 1.75; }
+.detalle-lista { margin-top: 0.75rem; padding-left: 1.25rem; }
+.detalle-lista li { margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--gris); }
+
+/* ── MOMENTOS ────────────────────────────────── */
+.momentos-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.momento-btn {
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  padding: 0.7rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.18s;
+  text-align: center;
+}
+.momento-btn .m-num { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris); margin-bottom: 0.2rem; }
+.momento-btn .m-nombre { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 600; color: var(--azul); }
+.momento-btn.active { border-color: var(--azul-med); background: var(--azul-claro); }
+.momento-btn:hover:not(.active) { background: var(--gris-claro); }
+
+.momento-panel {
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: none;
+}
+.momento-panel.visible { display: block; }
+.mp-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+.mp-pregunta {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--gris);
+  border-top: 1px solid var(--borde);
+  padding-top: 0.75rem;
+  margin-top: 1rem;
+}
+.mp-pregunta strong { color: var(--azul); font-style: normal; }
+
+.herramienta-item {
+  background: var(--gris-claro);
+  border-left: 3px solid var(--azul-med);
+  border-radius: 0 4px 4px 0;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  color: var(--gris);
+  margin: 0.35rem 0;
+}
+
+/* ── CONCEPTOS ───────────────────────────────── */
+.conceptos-nav {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.concepto-btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid var(--borde);
+  background: white;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.18s;
+  color: var(--gris);
+  font-weight: 500;
+}
+.concepto-btn:hover { background: var(--gris-claro); }
+.concepto-btn.active { background: var(--azul); color: white; border-color: var(--azul); }
+
+.concepto-panel {
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  overflow: hidden;
+  display: none;
+}
+.concepto-panel.visible { display: block; }
+.concepto-header {
+  padding: 1.25rem 1.5rem 1rem;
+  border-bottom: 1px solid var(--borde);
+}
+.concepto-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.concepto-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--texto);
+  margin-bottom: 0.35rem;
+}
+.concepto-nucleo {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--gris);
+  line-height: 1.65;
+}
+.concepto-body { padding: 1.25rem 1.5rem; }
+.concepto-body p { font-size: 0.92rem; color: var(--gris); line-height: 1.75; margin-bottom: 0.75rem; }
+.concepto-body p:last-child { margin-bottom: 0; }
+.concepto-articula {
+  background: var(--azul-claro);
+  border-left: 3px solid var(--azul-med);
+  border-radius: 0 4px 4px 0;
+  padding: 0.75rem 1rem;
+  margin: 0 1.5rem 1.25rem;
+  font-size: 0.82rem;
+  color: var(--azul);
+}
+.concepto-articula strong { display: block; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.25rem; color: var(--azul-med); }
+
+/* ── GOBERNABILIDAD ──────────────────────────── */
+.gob-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.gob-btn {
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid var(--borde);
+  background: white;
+  font-size: 0.83rem;
+  cursor: pointer;
+  transition: all 0.18s;
+  font-weight: 500;
+  color: var(--gris);
+}
+.gob-btn:hover { background: var(--gris-claro); }
+.gob-btn.active { background: var(--teal); color: white; border-color: var(--teal); }
+
+.gob-panel {
+  background: white;
+  border: 1px solid var(--borde);
+  border-top: 3px solid var(--teal);
+  border-radius: 0 0 8px 8px;
+  padding: 1.5rem;
+  display: none;
+}
+.gob-panel.visible { display: block; }
+.gob-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--texto);
+  margin-bottom: 0.5rem;
+}
+.gob-nucleo {
+  font-size: 0.9rem;
+  color: var(--teal);
+  font-weight: 500;
+  padding: 0.6rem 0.9rem;
+  background: var(--teal-claro);
+  border-radius: 4px;
+  margin-bottom: 0.9rem;
+}
+.gob-cuerpo { font-size: 0.92rem; color: var(--gris); line-height: 1.75; }
+.gob-cuerpo p { margin-bottom: 0.7rem; }
+.bloque-gob {
+  background: var(--gris-claro);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 4px 4px 0;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.85rem;
+  color: var(--gris);
+  margin: 0.35rem 0;
+}
+.gob-pregunta { font-size: 0.84rem; font-style: italic; color: var(--gris); border-top: 1px solid var(--borde); padding-top: 0.75rem; margin-top: 1rem; }
+
+/* ── LOGICA FINAL ────────────────────────────── */
+.logica-box {
+  background: white;
+  border: 1px solid var(--borde);
+  border-top: 4px solid var(--azul);
+  border-radius: 0 0 8px 8px;
+  padding: 1.5rem;
+}
+.logica-box p { font-size: 0.93rem; color: var(--gris); line-height: 1.8; margin-bottom: 0.85rem; }
+.logica-box p:last-child { margin-bottom: 0; }
+.concepto-inline { font-weight: 600; color: var(--azul); }
+
+/* ── BIBLIOGRAFIA ────────────────────────────── */
+.biblio-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--borde);
+  font-size: 0.88rem;
+  color: var(--gris);
+}
+.biblio-item:last-child { border-bottom: none; }
+.biblio-dot { width: 6px; height: 6px; background: var(--azul-med); border-radius: 50%; flex-shrink: 0; margin-top: 0.55rem; }
+
+/* ── FOOTER ──────────────────────────────────── */
+footer {
+  background: var(--azul);
+  color: #90AEDA;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.8rem;
+}
+
+/* ── RESPONSIVE ──────────────────────────────── */
+@media (max-width: 600px) {
+  .triangulo-grid { grid-template-columns: 1fr; }
+  .triangulo-grid .vertice-top { grid-column: auto; }
+  .vertice-card { max-width: 100%; }
+  .momentos-tabs { grid-template-columns: 1fr 1fr; }
+  .header-inner { padding: 2rem 1.25rem; }
+  main { padding: 1.5rem 1rem 3rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-eyebrow">Ciencias Sociales · Material docente</div>
+    <h1 class="header-title">Planificación Estratégica Situacional</h1>
+    <p class="header-subtitle">Carlos Matus — Conceptos fundamentales y metodología del PES</p>
+    <nav class="header-nav">
+      <a class="nav-pill" href="#triangulo">Triángulo de gobierno</a>
+      <a class="nav-pill" href="#momentos">Los cuatro momentos</a>
+      <a class="nav-pill" href="#gobernabilidad">Gobernabilidad</a>
+      <a class="nav-pill" href="#conceptos">Diez conceptos</a>
+      <a class="nav-pill" href="#logica">Lógica del sistema</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- INTRODUCCIÓN -->
+  <section>
+    <div class="intro-box">
+      Carlos Matus (1931–1998) desarrolló el <strong>Método PES</strong> como crítica radical a la planificación normativa tradicional, que planifica desde un solo actor, en un entorno controlado, con diagnóstico único y verdadero. Matus planifica en la complejidad: múltiples actores, incertidumbre, conflicto, poder. Su obra central, <em>Política, planificación y gobierno</em> (1987), es fundacional para las Ciencias Sociales, el Trabajo Social, la administración pública y las políticas sociales.
+    </div>
+  </section>
+
+  <!-- TRIÁNGULO DE GOBIERNO -->
+  <section id="triangulo">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <h2 class="section-title">El triángulo de gobierno</h2>
+    </div>
+    <p style="font-size:0.9rem;color:var(--gris);margin-bottom:1.25rem;">Gobernar requiere la articulación de tres variables que se condicionan mutuamente. Seleccioná cada vértice para explorar su contenido.</p>
+
+    <div class="triangulo-grid">
+      <div class="vertice-top">
+        <div class="vertice-card v-proyecto" onclick="mostrarVertice('proyecto')">
+          <div class="tag">Vértice superior</div>
+          <div class="nombre">Proyecto de gobierno</div>
+          <div class="sub">Qué quiero hacer y para quién</div>
+        </div>
+      </div>
+      <div>
+        <div class="vertice-card v-gobernabilidad" onclick="mostrarVertice('gobernabilidad')">
+          <div class="tag">Vértice izquierdo</div>
+          <div class="nombre">Gobernabilidad del sistema</div>
+          <div class="sub">Variables que controlo</div>
+        </div>
+      </div>
+      <div style="grid-column:3">
+        <div class="vertice-card v-capacidad" onclick="mostrarVertice('capacidad')">
+          <div class="tag">Vértice derecho</div>
+          <div class="nombre">Capacidad de gobierno</div>
+          <div class="sub">Saber hacer y conducir</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="triangulo-detalle" id="det-proyecto">
+      <div class="detalle-titulo" style="color:var(--purple)">Proyecto de gobierno</div>
+      <div class="detalle-cuerpo">
+        Define qué quiero hacer, para quién y con qué valores. Es el contenido político-programático del gobierno: las apuestas, las prioridades, la dirección. No es solo un plan técnico: es un proyecto que implica valores, intereses y una lectura de la realidad desde una posición determinada.
+        <ul class="detalle-lista">
+          <li>Expresa los objetivos y la direccionalidad del actor</li>
+          <li>Es la apuesta que da sentido a la acción de gobierno</li>
+          <li>Debe ser coherente con la gobernabilidad disponible y la capacidad existente</li>
+          <li>Si excede la gobernabilidad, genera promesas incumplibles y crisis política</li>
+        </ul>
+      </div>
+    </div>
+    <div class="triangulo-detalle" id="det-gobernabilidad">
+      <div class="detalle-titulo" style="color:var(--teal)">Gobernabilidad del sistema</div>
+      <div class="detalle-cuerpo">
+        Relación entre las variables que el actor controla y las que no controla. No es estabilidad política en sentido general sino el peso relativo del control del actor sobre las variables relevantes para su proyecto. Cuanto más depende de variables que controlan sus oponentes o que son puro azar, menor es su gobernabilidad.
+        <ul class="detalle-lista">
+          <li><strong>Variables propias:</strong> controladas directamente por el actor</li>
+          <li><strong>Variables compartidas:</strong> dependen de varios actores (requieren negociación)</li>
+          <li><strong>Variables exógenas:</strong> ningún actor las controla (requieren adaptación)</li>
+          <li>La gobernabilidad se construye activamente: no es un dato dado</li>
+        </ul>
+      </div>
+    </div>
+    <div class="triangulo-detalle" id="det-capacidad">
+      <div class="detalle-titulo" style="color:var(--coral)">Capacidad de gobierno</div>
+      <div class="detalle-cuerpo">
+        El acervo de métodos, técnicas, destrezas y experiencias que el actor domina para conducir el proceso de gobierno. No es solo capacidad técnica: incluye la habilidad política de leer la situación, anticipar movimientos de otros actores y gestionar la complejidad. Es el "saber gobernar" en condiciones de incertidumbre.
+        <ul class="detalle-lista">
+          <li>Capacidad técnica: métodos, herramientas, conocimiento especializado</li>
+          <li>Capacidad política: lectura situacional, manejo de coaliciones</li>
+          <li>Capacidad organizacional: estructura, equipo, sistemas de gestión</li>
+          <li>Sin capacidad, el proyecto queda como voluntad sin ejecución</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOS CUATRO MOMENTOS -->
+  <section id="momentos">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <h2 class="section-title">Los cuatro momentos del PES</h2>
+    </div>
+    <p style="font-size:0.9rem;color:var(--gris);margin-bottom:1.25rem;">Los momentos no son etapas secuenciales sino instancias que se repiten y alternan a lo largo del proceso. Seleccioná cada uno para explorar herramientas y preguntas pedagógicas.</p>
+
+    <div class="momentos-tabs">
+      <div class="momento-btn active" onclick="mostrarMomento(0)">
+        <div class="m-num">Momento 1</div>
+        <div class="m-nombre">Explicativo</div>
+      </div>
+      <div class="momento-btn" onclick="mostrarMomento(1)">
+        <div class="m-num">Momento 2</div>
+        <div class="m-nombre">Normativo</div>
+      </div>
+      <div class="momento-btn" onclick="mostrarMomento(2)">
+        <div class="m-num">Momento 3</div>
+        <div class="m-nombre">Estratégico</div>
+      </div>
+      <div class="momento-btn" onclick="mostrarMomento(3)">
+        <div class="m-num">Momento 4</div>
+        <div class="m-nombre">Táctico-Op.</div>
+      </div>
+    </div>
+
+    <div class="momento-panel visible" id="mp-0">
+      <span class="mp-tag" style="background:#E6F1FB;color:#185FA5">M1 · Explicativo</span>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:0.5rem;">¿Cómo es la realidad que enfrento?</h3>
+      <p style="font-size:0.92rem;color:var(--gris);margin-bottom:0.9rem;">El planificador parte de su propia lectura de la situación. Matus introduce la <strong>apreciación situacional</strong>: cada actor lee la realidad desde su posición, con sus recursos y desde sus intereses. No hay un diagnóstico verdadero: hay situaciones en conflicto.</p>
+      <div style="margin-bottom:0.75rem;">
+        <div style="font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gris);margin-bottom:0.5rem;">Herramientas principales</div>
+        <div class="herramienta-item">Flujograma situacional: cadena de causas que producen un problema</div>
+        <div class="herramienta-item">Identificación de nudos críticos: causas con alto impacto y manipulables</div>
+        <div class="herramienta-item">Análisis de actores: ¿quiénes producen la situación?</div>
+        <div class="herramienta-item">VDP: Vectores de descripción del problema</div>
+      </div>
+      <div style="background:var(--gris-claro);border-radius:4px;padding:0.75rem 1rem;font-size:0.85rem;margin-bottom:0.75rem;">
+        <strong style="color:var(--azul)">Concepto clave:</strong> Problema cuasi-estructurado — Los problemas sociales no tienen solución única ni técnica. Son abiertos, conflictivos, con múltiples causas y múltiples lecturas.
+      </div>
+      <div class="mp-pregunta"><strong>Para el aula:</strong> ¿Cuál sería el flujograma situacional del problema de trabajo infantil en tu territorio? ¿Todos los actores lo ven igual?</div>
+    </div>
+
+    <div class="momento-panel" id="mp-1">
+      <span class="mp-tag" style="background:#EEEDFE;color:#3C3489">M2 · Normativo</span>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:0.5rem;">¿Cómo debería ser la situación-objetivo?</h3>
+      <p style="font-size:0.92rem;color:var(--gris);margin-bottom:0.9rem;">Se diseña la <strong>situación-objetivo (SO)</strong>: la imagen del futuro deseable y posible. No es una utopía abstracta sino una configuración concreta de variables. Incluye reconocer que otros actores tienen sus propias situaciones-objetivo, posiblemente contradictorias.</p>
+      <div style="margin-bottom:0.75rem;">
+        <div style="font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gris);margin-bottom:0.5rem;">Herramientas principales</div>
+        <div class="herramienta-item">Diseño de la situación-objetivo (SO): descripción operacional del futuro deseado</div>
+        <div class="herramienta-item">Árbol de apuestas: resultados intermedios necesarios</div>
+        <div class="herramienta-item">Análisis de brechas entre situación inicial (SI) y situación-objetivo (SO)</div>
+        <div class="herramienta-item">Operaciones y demandas de recursos</div>
+      </div>
+      <div style="background:var(--gris-claro);border-radius:4px;padding:0.75rem 1rem;font-size:0.85rem;margin-bottom:0.75rem;">
+        <strong style="color:var(--purple)">Concepto clave:</strong> Situación-objetivo ≠ meta técnica — La SO es un proyecto político-técnico que implica valores, no solo eficiencia.
+      </div>
+      <div class="mp-pregunta"><strong>Para el aula:</strong> ¿Cómo describirías operacionalmente la situación-objetivo de un programa de inclusión educativa? ¿Qué actores tendrían situaciones-objetivo diferentes?</div>
+    </div>
+
+    <div class="momento-panel" id="mp-2">
+      <span class="mp-tag" style="background:#E1F5EE;color:#085041">M3 · Estratégico</span>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:0.5rem;">¿Es posible? ¿Cómo construyo viabilidad?</h3>
+      <p style="font-size:0.92rem;color:var(--gris);margin-bottom:0.9rem;">El corazón político del método. Se analiza la <strong>viabilidad</strong> de la situación-objetivo: qué actores se oponen, qué recursos controlan, qué coaliciones son posibles. Matus distingue entre lo técnicamente deseable y lo políticamente posible, y propone estrategias para construir viabilidad donde no existe.</p>
+      <div style="margin-bottom:0.75rem;">
+        <div style="font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gris);margin-bottom:0.5rem;">Herramientas principales</div>
+        <div class="herramienta-item">Análisis de coyuntura y correlación de fuerzas</div>
+        <div class="herramienta-item">Análisis MACTOR: actores, motivaciones, recursos de poder</div>
+        <div class="herramienta-item">Diseño de operaciones estratégicas</div>
+        <div class="herramienta-item">Construcción de escenarios: optimista, tendencial, pesimista</div>
+      </div>
+      <div style="background:var(--gris-claro);border-radius:4px;padding:0.75rem 1rem;font-size:0.85rem;margin-bottom:0.75rem;">
+        <strong style="color:var(--teal)">Concepto clave:</strong> Viabilidad política — No se asume: se construye activamente mediante alianzas, negociación y acumulación de poder.
+      </div>
+      <div class="mp-pregunta"><strong>Para el aula:</strong> Tomá un proyecto de política pública de tu área: ¿qué actores lo bloquearían? ¿Qué recursos de poder tienen? ¿Cómo construirías viabilidad?</div>
+    </div>
+
+    <div class="momento-panel" id="mp-3">
+      <span class="mp-tag" style="background:#FAECE7;color:#712B13">M4 · Táctico-Operacional</span>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:0.5rem;">¿Qué hago hoy, aquí, en esta coyuntura?</h3>
+      <p style="font-size:0.92rem;color:var(--gris);margin-bottom:0.9rem;">El momento de la <strong>acción concreta</strong>. La planificación no termina en el plan: se requiere un sistema de gestión que permita monitorear, evaluar y ajustar. Matus introduce la <strong>sala de situaciones</strong> para el seguimiento estratégico permanente.</p>
+      <div style="margin-bottom:0.75rem;">
+        <div style="font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gris);margin-bottom:0.5rem;">Herramientas principales</div>
+        <div class="herramienta-item">Planes operativos con responsables y plazos definidos</div>
+        <div class="herramienta-item">Sistema de petición y rendición de cuentas (PGE)</div>
+        <div class="herramienta-item">Sala de situaciones: monitoreo estratégico permanente</div>
+        <div class="herramienta-item">Indicadores de avance y de resultado con ajuste iterativo</div>
+      </div>
+      <div style="background:var(--gris-claro);border-radius:4px;padding:0.75rem 1rem;font-size:0.85rem;margin-bottom:0.75rem;">
+        <strong style="color:var(--coral)">Concepto clave:</strong> Plan ≠ planificación — El plan es un momento del proceso, no el producto final. La planificación es continua y adaptativa.
+      </div>
+      <div class="mp-pregunta"><strong>Para el aula:</strong> ¿Cómo organizarías el seguimiento de un plan de intervención social? ¿Qué indicadores usarías? ¿Quién es responsable de qué?</div>
+    </div>
+  </section>
+
+  <!-- GOBERNABILIDAD -->
+  <section id="gobernabilidad">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <h2 class="section-title">Gobernabilidad del sistema</h2>
+    </div>
+    <p style="font-size:0.9rem;color:var(--gris);margin-bottom:1.25rem;">El concepto más político del PES: no es estabilidad del sistema sino la relación entre variables que el actor controla y las que no. Es dinámica, específica para cada actor y construible.</p>
+
+    <div class="gob-tabs">
+      <button class="gob-btn active" onclick="mostrarGob(0)">Qué es</button>
+      <button class="gob-btn" onclick="mostrarGob(1)">Zona de gobernabilidad</button>
+      <button class="gob-btn" onclick="mostrarGob(2)">Tipos de variables</button>
+      <button class="gob-btn" onclick="mostrarGob(3)">Crisis y pasivo acumulado</button>
+    </div>
+
+    <div class="gob-panel visible" id="gob-0">
+      <div class="gob-titulo">Gobernabilidad no es estabilidad: es peso relativo de control</div>
+      <div class="gob-nucleo">Gobernabilidad = variables que controlo / (variables que controlo + variables que otros controlan o que nadie controla)</div>
+      <div class="gob-cuerpo">
+        <p>Cuanto más peso tienen las variables bajo mi control en relación al total de variables relevantes para mi proyecto, mayor es mi gobernabilidad. Cuanto más dependo de variables que controlan mis oponentes o que son puro azar, menor es mi gobernabilidad.</p>
+        <p>La gobernabilidad <strong>no es una condición binaria</strong> (hay / no hay) sino un continuum que varía según el actor, el problema y el momento. Un mismo actor puede tener alta gobernabilidad sobre ciertos problemas y muy baja sobre otros.</p>
+      </div>
+      <div class="gob-pregunta"><strong>Para el aula:</strong> ¿Puede un actor con pocos recursos formales tener alta gobernabilidad sobre problemas acotados? ¿Cómo?</div>
+    </div>
+
+    <div class="gob-panel" id="gob-1">
+      <div class="gob-titulo">Todo proyecto tiene una zona de gobernabilidad posible</div>
+      <div class="gob-nucleo">Un buen plan no es el que abarca todos los problemas, sino el correctamente dimensionado a la gobernabilidad real del actor.</div>
+      <div class="gob-cuerpo">
+        <p>Un actor gobernabiliza cuando concentra su acción en las variables que puede mover y construye alianzas para influir sobre las que no controla directamente. Un plan sobredimensionado produce frustración, pérdida de credibilidad y erosión política.</p>
+        <p>Para el Trabajo Social: una intervención que exige condiciones que dependen enteramente de otros actores sin ninguna estrategia para influirlos tiene gobernabilidad muy baja, independientemente de su calidad técnica.</p>
+      </div>
+      <div class="gob-pregunta"><strong>Para el aula:</strong> ¿Cuál es la zona de gobernabilidad de una organización social de base en un programa de vivienda? ¿Qué variables controla realmente?</div>
+    </div>
+
+    <div class="gob-panel" id="gob-2">
+      <div class="gob-titulo">Tres tipos de variables según su controlabilidad</div>
+      <div class="gob-nucleo">La inteligencia estratégica consiste en saber en qué categoría cae cada variable y actuar en consecuencia.</div>
+      <div class="gob-cuerpo">
+        <div class="bloque-gob"><strong>Variables propias:</strong> aquellas que el actor controla directamente. Son la base de su gobernabilidad. Ejemplos: presupuesto propio, equipo, procedimientos internos, agenda pública.</div>
+        <div class="bloque-gob"><strong>Variables compartidas:</strong> dependen de la acción concurrente de varios actores, ninguno con control absoluto. Requieren negociación y construcción de coaliciones. Ejemplos: política intersectorial, acuerdo territorial, reforma legislativa.</div>
+        <div class="bloque-gob"><strong>Variables exógenas:</strong> ningún actor las controla. Son producto de procesos estructurales, económicos o del azar. Requieren previsión de escenarios y adaptación. Ejemplos: crisis económica internacional, pandemia, cambio climático.</div>
+      </div>
+      <div class="gob-pregunta"><strong>Para el aula:</strong> Tomá un programa social concreto: ¿cuáles de sus variables son propias, compartidas y exógenas? ¿Qué implica eso para su diseño?</div>
+    </div>
+
+    <div class="gob-panel" id="gob-3">
+      <div class="gob-titulo">El pasivo político acumulado y la crisis de gobernabilidad</div>
+      <div class="gob-nucleo">La crisis de gobernabilidad ocurre cuando el pasivo acumulado supera la capacidad del actor de procesar los problemas con sus recursos y su proyecto.</div>
+      <div class="gob-cuerpo">
+        <p>Todo actor genera tanto activos (logros, apoyo, credibilidad) como pasivos (problemas sin resolver, promesas incumplidas, conflictos abiertos). La gobernabilidad se erosiona progresivamente cuando el actor:</p>
+        <div class="bloque-gob">Promete más de lo que puede entregar (sobredimensiona su proyecto)</div>
+        <div class="bloque-gob">No gestiona el conflicto con otros actores (deja crecer la oposición sin estrategia)</div>
+        <div class="bloque-gob">Pierde capacidad técnica (su equipo no puede procesar la complejidad)</div>
+        <div class="bloque-gob">Enfrenta shocks exógenos sin capacidad de adaptación (planes rígidos ante contextos cambiantes)</div>
+        <p style="margin-top:0.75rem;">Para las políticas sociales: pensar las intervenciones no solo en términos de diseño técnico sino de <strong>sustentabilidad política</strong> en el tiempo.</p>
+      </div>
+      <div class="gob-pregunta"><strong>Para el aula:</strong> ¿Podés identificar un programa social que haya sufrido una crisis de gobernabilidad por pasivo acumulado? ¿Qué variables se escaparon del control?</div>
+    </div>
+  </section>
+
+  <!-- DIEZ CONCEPTOS -->
+  <section id="conceptos">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <h2 class="section-title">Diez conceptos fundamentales</h2>
+    </div>
+    <p style="font-size:0.9rem;color:var(--gris);margin-bottom:1.25rem;">Cada concepto solo adquiere su sentido pleno en relación con los demás. Navegá entre ellos para ver su núcleo, desarrollo y articulaciones.</p>
+
+    <div class="conceptos-nav">
+      <button class="concepto-btn active" onclick="mostrarConcepto(0)">Realidad</button>
+      <button class="concepto-btn" onclick="mostrarConcepto(1)">Sistema social</button>
+      <button class="concepto-btn" onclick="mostrarConcepto(2)">Producción social</button>
+      <button class="concepto-btn" onclick="mostrarConcepto(3)">Juego social</button>
+      <button class="concepto-btn" onclick="mostrarConcepto(4)">Estrategia</button>
+      <button class="concepto-btn" onclick="mostrarConcepto(5)">Situación</button>
+      <button class="concepto-btn" onclick="mostrarConcepto(6)">Actores sociales</button>
+      <button class="concepto-btn" onclick="mostrarConcepto(7)">Escenarios</button>
+      <button class="concepto-btn" onclick="mostrarConcepto(8)">Direccionalidad</button>
+      <button class="concepto-btn" onclick="mostrarConcepto(9)">Trayectoria</button>
+    </div>
+
+    <div id="conceptos-container"></div>
+  </section>
+
+  <!-- LÓGICA DEL SISTEMA -->
+  <section id="logica">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <h2 class="section-title">La lógica profunda del sistema</h2>
+    </div>
+    <div class="logica-box">
+      <p>Existe una <span class="concepto-inline">REALIDAD</span> social compleja e incierta que no puede conocerse de forma total ni neutra. Esa realidad está organizada como un <span class="concepto-inline">SISTEMA SOCIAL</span> que distribuye recursos, posiciones y reglas de modo desigual.</p>
+      <p>Todo lo que existe en ese sistema es resultado de <span class="concepto-inline">PRODUCCIÓN SOCIAL</span>: no hay hechos sociales sin actores que los produzcan. Los <span class="concepto-inline">ACTORES SOCIALES</span>, desde sus posiciones asimétricas, se relacionan en un <span class="concepto-inline">JUEGO SOCIAL</span> permanente: cooperan, compiten, negocian y se enfrentan.</p>
+      <p>Cada actor lee ese juego desde su <span class="concepto-inline">SITUACIÓN</span> propia, y despliega una <span class="concepto-inline">ESTRATEGIA</span> para alcanzar sus objetivos teniendo en cuenta que los demás también actúan. Para orientarla, construye <span class="concepto-inline">ESCENARIOS</span> y la ajusta a su <span class="concepto-inline">DIRECCIONALIDAD</span>: el norte que da sentido y coherencia al proyecto más allá de las metas puntuales.</p>
+      <p>El resultado de todo esto no es el plan de ninguno: es la <span class="concepto-inline">TRAYECTORIA</span> efectiva del sistema. La planificación estratégica situacional es el esfuerzo de un actor por <strong>influir conscientemente sobre esa trayectoria</strong> desde su posición, sus recursos y su proyecto, sabiendo que no la controla pero que tampoco es indiferente a cómo actúa.</p>
+    </div>
+  </section>
+
+  <!-- BIBLIOGRAFÍA -->
+  <section id="bibliografia">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <h2 class="section-title">Bibliografía esencial</h2>
+    </div>
+    <div style="background:white;border:1px solid var(--borde);border-radius:8px;padding:1rem 1.5rem;">
+      <div class="biblio-item"><div class="biblio-dot"></div><span>Matus, C. (1987). <em>Política, planificación y gobierno</em>. ILPES/OPS, Washington.</span></div>
+      <div class="biblio-item"><div class="biblio-dot"></div><span>Matus, C. (1993). <em>El líder sin estado mayor</em>. Fundación Altadir, Caracas.</span></div>
+      <div class="biblio-item"><div class="biblio-dot"></div><span>Matus, C. (1998). <em>Chimpancé, Maquiavelo y Gandhi: estrategias políticas</em>. Fundación Altadir.</span></div>
+      <div class="biblio-item"><div class="biblio-dot"></div><span>Huertas, F. (1993). <em>El método PES: entrevista con Matus</em>. CEFOR, Caracas. <strong>Recomendado para introducción.</strong></span></div>
+      <div class="biblio-item"><div class="biblio-dot"></div><span>Rovere, M. (1993). <em>Planificación estratégica de recursos humanos en salud</em>. OPS. Aplicación en campo social.</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Material docente · Planificación Estratégica Situacional · Carlos Matus</p>
+  <p style="margin-top:0.4rem;font-size:0.72rem;opacity:0.7">Ciencias Sociales · Trabajo Social · Políticas Sociales</p>
+</footer>
+
+<script>
+// ── TRIÁNGULO ────────────────────────────────
+function mostrarVertice(id) {
+  ['proyecto','gobernabilidad','capacidad'].forEach(v => {
+    document.getElementById('det-' + v).classList.remove('visible');
+  });
+  const el = document.getElementById('det-' + id);
+  el.classList.add('visible');
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ── MOMENTOS ─────────────────────────────────
+function mostrarMomento(i) {
+  document.querySelectorAll('.momento-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+  document.querySelectorAll('.momento-panel').forEach((p, j) => p.classList.toggle('visible', i === j));
+}
+
+// ── GOBERNABILIDAD ────────────────────────────
+function mostrarGob(i) {
+  document.querySelectorAll('.gob-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+  document.querySelectorAll('.gob-panel').forEach((p, j) => p.classList.toggle('visible', i === j));
+}
+
+// ── CONCEPTOS ─────────────────────────────────
+const conceptosData = [
+  {
+    tag: "Concepto 01 · Realidad", color: "#3C3489", bg: "#EEEDFE",
+    titulo: "Campo complejo, opaco y en permanente movimiento",
+    nucleo: "La realidad no es un dato objetivo que se recibe: es una construcción activa del actor que la interpreta desde su posición.",
+    p1: "Para Matus la realidad social es opaca, compleja y resistente. No se deja conocer totalmente ni por el técnico más sofisticado. Es el escenario del juego social: el campo donde los actores actúan, se condicionan mutuamente y producen resultados que nadie planificó del todo.",
+    p2: "Tiene tres dimensiones inseparables: la realidad económica (recursos, producción, distribución), la realidad política (poder, conflicto, legitimidad) y la realidad social (vínculos, organizaciones, cultura). Ninguna puede entenderse sin las otras.",
+    articula: "Situación (cada actor la interpreta distinto) · Sistema social (es su contenido) · Escenarios (sus posibles configuraciones futuras)"
+  },
+  {
+    tag: "Concepto 02 · Sistema social", color: "#085041", bg: "#E1F5EE",
+    titulo: "Conjunto articulado de subsistemas que habilita y constriñe la acción",
+    nucleo: "El sistema social es el contexto estructural que habilita y constriñe la acción de cada jugador en el juego social.",
+    p1: "Matus no usa 'sistema social' en sentido funcionalista sino como campo de juego donde operan los actores. Distribuye recursos, posiciones y reglas de modo desigual. Los actores tienen márgenes de acción y creatividad estratégica, pero el sistema concentra recursos y fija reglas que no son neutrales.",
+    p2: "Para el PES, conocer el sistema social implica mapear esas reglas, esos recursos concentrados y esas posiciones, no como fondo neutro sino como campo de fuerza activo que condiciona toda intervención.",
+    articula: "Contiene: Actores sociales · Producción social · Juego social · Reglas formales e informales"
+  },
+  {
+    tag: "Concepto 03 · Producción social", color: "#712B13", bg: "#FAECE7",
+    titulo: "Todo lo social es producido por actores: nada ocurre solo",
+    nucleo: "Los problemas sociales no existen como hechos naturales: son producidos por cadenas causales en las que actores participan con distintos grados de responsabilidad y poder.",
+    p1: "Contra las visiones estructuralistas, Matus afirma que la realidad social es producida permanentemente por la acción de los actores. La pobreza, la violencia, la exclusión no son fatalidades: son resultados de procesos de producción social en los que ciertos actores acumulan y otros son despojados.",
+    p2: "Consecuencia política directa: lo que fue producido puede ser transformado. La producción social no está terminada; es un proceso en curso que la planificación y la intervención pueden alterar.",
+    articula: "Actores sociales (quiénes producen) · Juego social (cómo lo producen) · Direccionalidad (hacia dónde)"
+  },
+  {
+    tag: "Concepto 04 · Juego social", color: "#3C3489", bg: "#EEEDFE",
+    titulo: "Interacción estratégica entre múltiples actores con proyectos contradictorios",
+    nucleo: "A diferencia de los juegos formales, el juego social tiene reglas que los propios jugadores cambian al jugar.",
+    p1: "El juego social es la metáfora central del PES. Las apuestas son inciertas, los jugadores no son completamente racionales y los resultados emergen de interacciones que nadie controla totalmente. Tipos: suma cero (conflicto puro), suma positiva (todos pueden ganar cooperando), suma negativa (todos pierden si el conflicto se desborda).",
+    p2: "La inteligencia estratégica consiste en reconocer qué tipo de juego se está jugando en cada coyuntura y actuar en consecuencia: cooperar donde es posible, competir donde es necesario, negociar donde hay intereses compartidos.",
+    articula: "Actores sociales (los jugadores) · Estrategia (cómo juegan) · Situación (cómo cada uno lee el juego) · Escenarios (resultados posibles)"
+  },
+  {
+    tag: "Concepto 05 · Estrategia", color: "#085041", bg: "#E1F5EE",
+    titulo: "Cálculo interactivo que incluye al otro como jugador activo",
+    nucleo: "La estrategia no es un plan fijo: es un cálculo que anticipa los movimientos del otro y construye viabilidad donde hoy no existe.",
+    p1: "Tres dimensiones: estrategia de construcción de viabilidad (cómo transformo lo inviable en viable, acumulando poder y desactivando oposiciones); estrategia de acumulación de capital político (legitimidad, alianzas, capacidad técnica, base social); y estrategia de adaptación situacional (ajustar apuestas cuando la situación cambia sin abandonar la direccionalidad).",
+    p2: "La diferencia con la planificación normativa es decisiva: en el PES la estrategia siempre está dirigida a otros actores que también planifican. No se planifica en el vacío sino en un campo de fuerzas.",
+    articula: "Situación (punto de partida) · Actores (quiénes se oponen, quiénes se suman) · Escenarios (qué puede pasar) · Direccionalidad (hacia dónde)"
+  },
+  {
+    tag: "Concepto 06 · Situación", color: "#633806", bg: "#FAEEDA",
+    titulo: "La realidad tal como es percibida e interpretada desde una posición",
+    nucleo: "No hay diagnóstico objetivo: hay apreciaciones situacionales en disputa. La situación es siempre la situación de alguien.",
+    p1: "Lo que distingue a la situación de un diagnóstico técnico es su carácter posicional: no describe la realidad desde ningún lugar, sino desde el lugar del actor planificador. Incluye no solo los hechos sino los valores, los intereses y los recursos que ese actor pone en juego al interpretar.",
+    p2: "La pluralidad de situaciones no es un problema metodológico a resolver: es la materia prima del juego social y del análisis estratégico. El flujograma situacional es la herramienta que reconstruye la cadena causal del problema desde la posición del actor.",
+    articula: "Producida por: Actores sociales · Se actualiza en: Escenarios · Es el insumo de: Estrategia · Está inserta en: Sistema social"
+  },
+  {
+    tag: "Concepto 07 · Actores sociales", color: "#712B13", bg: "#FAECE7",
+    titulo: "Sujetos con proyecto, recursos y apreciación situacional diferenciada",
+    nucleo: "No todo el mundo es actor en sentido pleno: un actor social tiene proyecto propio, recursos para actuar y voluntad de acción estratégica.",
+    p1: "Hay actores con distinto peso en el juego social según sus recursos de poder: políticos, económicos, cognitivos, organizativos, simbólicos. Esa asimetría es estructural pero no fija: los actores pueden acumular recursos, construir alianzas y modificar su posición relativa.",
+    p2: "Para el análisis estratégico Matus propone identificar para cada actor relevante: su proyecto, sus recursos de poder, su apreciación situacional, su posición frente al proyecto del planificador (aliado, oponente, indiferente) y su capacidad de acción en la coyuntura.",
+    articula: "Son los jugadores de: Juego social · Producen: Producción social · Tienen: Situación propia · Definen: Direccionalidad en disputa"
+  },
+  {
+    tag: "Concepto 08 · Escenarios", color: "#3C3489", bg: "#EEEDFE",
+    titulo: "Configuraciones posibles del futuro para orientar la estrategia",
+    nucleo: "Los escenarios no son predicciones: son construcciones analíticas que mapean el espacio de lo posible dado el comportamiento probable de los actores.",
+    p1: "Matus trabaja con tres escenarios: optimista (condiciones más favorables al proyecto), tendencial (futuro si nada cambia sustancialmente) y pesimista (condiciones más adversas posibles). El valor no es adivinar el futuro sino preparar la estrategia para múltiples futuros posibles.",
+    p2: "Un plan que solo funciona en el escenario optimista es un plan frágil. Un actor estratégico diseña operaciones viables en distintos escenarios y reserva capacidad de adaptación para cuando la realidad no sigue el guión esperado.",
+    articula: "Se construyen desde: Situación · Dependen de: Actores (sus movimientos probables) · Orientan: Estrategia · Configuran posibles: Trayectorias"
+  },
+  {
+    tag: "Concepto 09 · Direccionalidad", color: "#085041", bg: "#E1F5EE",
+    titulo: "El norte estratégico que orienta el proyecto más allá de las metas puntuales",
+    nucleo: "La direccionalidad es el horizonte de sentido que persiste aunque las metas cambien por restricciones de gobernabilidad o cambios de escenario.",
+    p1: "Se distingue de la meta operacional: mientras una meta es específica, medible y acotada en el tiempo, la direccionalidad es el norte que da coherencia al conjunto del proyecto. Por ejemplo: 'reducir la desigualdad' es una direccionalidad; 'bajar el coeficiente Gini un 5% en cuatro años' es una meta.",
+    p2: "Permite distinguir entre flexibilidad táctica (ajustar metas, tiempos, medios) y coherencia estratégica (mantener el norte). Un actor que cambia de direccionalidad ante cada obstáculo no tiene proyecto: tiene solo reacción.",
+    articula: "Orienta: Proyecto de gobierno · Se mantiene a través de: Estrategia · Se expresa en: Trayectoria · Se disputa con otros: Actores"
+  },
+  {
+    tag: "Concepto 10 · Trayectoria", color: "#444441", bg: "#F1EFE8",
+    titulo: "El recorrido efectivo del sistema: resultante de todos los actores",
+    nucleo: "Ningún actor controla completamente la trayectoria del sistema. Es una resultante compleja de todas las acciones, conflictos, acuerdos y shocks exógenos.",
+    p1: "Mientras la direccionalidad es el norte que persigue un actor, la trayectoria es lo que realmente ocurre como resultado del juego social entre múltiples actores con proyectos distintos. Puede acercarse o alejarse de la direccionalidad de cualquier actor según la correlación de fuerzas en cada coyuntura.",
+    p2: "La evaluación de una intervención no debe preguntarse si el plan se ejecutó tal como fue diseñado —pregunta de la planificación normativa— sino en qué medida la trayectoria del sistema se orientó hacia la direccionalidad buscada.",
+    articula: "Resulta de: Juego social (todos los actores) · Se orienta por: Direccionalidad · Es analizable en: Escenarios · Es el objeto de: Evaluación estratégica"
+  }
+];
+
+function mostrarConcepto(i) {
+  document.querySelectorAll('.concepto-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+  document.querySelectorAll('.concepto-panel').forEach((p, j) => p.classList.toggle('visible', i === j));
+}
+
+// Render conceptos
+const container = document.getElementById('conceptos-container');
+conceptosData.forEach((c, i) => {
+  const el = document.createElement('div');
+  el.className = 'concepto-panel' + (i === 0 ? ' visible' : '');
+  el.id = 'cp-' + i;
+  el.innerHTML = `
+    <div class="concepto-header" style="border-top:3px solid ${c.color}">
+      <div class="concepto-tag" style="color:${c.color}">${c.tag}</div>
+      <div class="concepto-titulo">${c.titulo}</div>
+      <div class="concepto-nucleo">${c.nucleo}</div>
+    </div>
+    <div class="concepto-body">
+      <p>${c.p1}</p>
+      <p>${c.p2}</p>
+    </div>
+    <div class="concepto-articula">
+      <strong>Se articula con</strong>${c.articula}
+    </div>
+  `;
+  container.appendChild(el);
+});
+
+// Smooth scroll for nav pills
+document.querySelectorAll('.nav-pill').forEach(pill => {
+  pill.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(pill.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
